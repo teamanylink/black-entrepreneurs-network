@@ -9,7 +9,80 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      applications: {
+        Row: {
+          created_at: string
+          id: string
+          opportunity_id: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          opportunity_id?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          opportunity_id?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      opportunities: {
+        Row: {
+          company: string
+          created_at: string
+          description: string
+          expires_at: string | null
+          id: string
+          location: string
+          requirements: string[] | null
+          responsibilities: string[] | null
+          salary_range: string | null
+          title: string
+          type: Database["public"]["Enums"]["opportunity_type"]
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          description: string
+          expires_at?: string | null
+          id?: string
+          location: string
+          requirements?: string[] | null
+          responsibilities?: string[] | null
+          salary_range?: string | null
+          title: string
+          type: Database["public"]["Enums"]["opportunity_type"]
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          description?: string
+          expires_at?: string | null
+          id?: string
+          location?: string
+          requirements?: string[] | null
+          responsibilities?: string[] | null
+          salary_range?: string | null
+          title?: string
+          type?: Database["public"]["Enums"]["opportunity_type"]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +91,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      opportunity_type: "job" | "joint_venture" | "internship" | "workshop"
     }
     CompositeTypes: {
       [_ in never]: never
