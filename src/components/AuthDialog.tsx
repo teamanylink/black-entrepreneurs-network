@@ -27,6 +27,7 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     firstName: "",
@@ -42,8 +43,6 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
       [e.target.name]: e.target.value,
     });
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,6 +95,10 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
           description: error.message,
         });
       } else {
+        toast({
+          title: "Success",
+          description: "Successfully signed in",
+        });
         onOpenChange(false);
         navigate("/dashboard/community");
       }
@@ -106,11 +109,11 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{isSignUp ? "Sign up" : "Sign in"} to apply</DialogTitle>
+          <DialogTitle>{isSignUp ? "Sign up" : "Sign in"}</DialogTitle>
           <DialogDescription>
             {isSignUp
-              ? "Create an account to apply for this opportunity."
-              : "Sign in to apply for this opportunity."}
+              ? "Create an account to join our community."
+              : "Welcome back! Sign in to your account."}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
