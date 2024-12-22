@@ -2,6 +2,7 @@ import { Briefcase, MapPin, Calendar } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link, useNavigate } from "react-router-dom";
 
 interface OpportunityCardProps {
   opportunity: {
@@ -17,6 +18,8 @@ interface OpportunityCardProps {
 }
 
 export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) {
+  const navigate = useNavigate();
+
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("en-US", {
       month: "short",
@@ -40,8 +43,12 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
     }
   };
 
+  const handleCardClick = () => {
+    navigate(`/opportunities/${opportunity.id}`);
+  };
+
   return (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={handleCardClick}>
       <CardHeader>
         <div className="flex justify-between items-start mb-2">
           <Badge className={getTypeColor(opportunity.type)}>
@@ -74,7 +81,10 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
       <CardFooter>
         <Button
           className="w-full"
-          onClick={() => onApply(opportunity.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onApply(opportunity.id);
+          }}
         >
           Apply Now
         </Button>

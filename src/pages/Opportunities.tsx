@@ -6,12 +6,15 @@ import { OpportunitiesHero } from "@/components/OpportunitiesHero";
 import { OpportunitiesGrid } from "@/components/OpportunitiesGrid";
 import { AuthDialog } from "@/components/AuthDialog";
 import { Navbar } from "@/components/Navbar";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function Opportunities() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [selectedOpportunityId, setSelectedOpportunityId] = useState<string | null>(null);
+  const location = useLocation();
+  const isDetailsPage = location.pathname.split("/").length > 2;
 
   const { data: opportunities = [], isLoading } = useQuery({
     queryKey: ["opportunities", searchTerm, selectedType],
@@ -42,27 +45,33 @@ export default function Opportunities() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <OpportunitiesHero 
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-      />
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-6">
-          <OpportunitySidebar
-            selectedType={selectedType}
-            onTypeSelect={setSelectedType}
+      {isDetailsPage ? (
+        <Outlet />
+      ) : (
+        <>
+          <OpportunitiesHero 
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
           />
 
-          <div className="flex-1">
-            <OpportunitiesGrid
-              opportunities={opportunities}
-              onApply={handleApply}
-              isLoading={isLoading}
-            />
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex flex-col md:flex-row gap-6">
+              <OpportunitySidebar
+                selectedType={selectedType}
+                onTypeSelect={setSelectedType}
+              />
+
+              <div className="flex-1">
+                <OpportunitiesGrid
+                  opportunities={opportunities}
+                  onApply={handleApply}
+                  isLoading={isLoading}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
       <AuthDialog
         open={showAuthDialog}
