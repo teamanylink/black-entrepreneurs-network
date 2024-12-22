@@ -38,7 +38,11 @@ export function OpportunitiesHero({ searchTerm, onSearchChange }: OpportunitiesH
                 className="pl-10 bg-transparent border-white/20 text-white placeholder:text-white/70"
               />
             </div>
-            <Button variant="outline" size="icon" className="shrink-0 border-white/20 text-white hover:bg-white/10">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 transition-colors duration-200"
+            >
               <Filter className="h-4 w-4" />
             </Button>
           </div>
