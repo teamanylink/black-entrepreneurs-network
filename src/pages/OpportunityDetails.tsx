@@ -44,13 +44,13 @@ export default function OpportunityDetails() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/opportunities">
+            <Link className="transition-colors hover:text-foreground" to="/opportunities">
               Opportunities
-            </BreadcrumbLink>
+            </Link>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink>{opportunity.title}</BreadcrumbLink>
+            <span className="font-normal text-foreground">{opportunity.title}</span>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
