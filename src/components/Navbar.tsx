@@ -1,11 +1,34 @@
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Menu, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AuthDialog } from "@/components/AuthDialog";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 export const Navbar = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const { session } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Success",
+        description: "You have been logged out successfully",
+      });
+      navigate('/');
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to log out. Please try again.",
+      });
+    }
+  };
 
   return (
     <nav className="bg-white shadow-sm">
@@ -20,12 +43,23 @@ export const Navbar = () => {
             <a href="#news" className="text-muted-foreground hover:text-primary transition-colors">News</a>
             <a href="#stories" className="text-muted-foreground hover:text-primary transition-colors">Success Stories</a>
             <a href="#resources" className="text-muted-foreground hover:text-primary transition-colors">Resources</a>
-            <Button 
-              variant="default"
-              onClick={() => setShowAuthDialog(true)}
-            >
-              Join Network
-            </Button>
+            {session ? (
+              <Button 
+                variant="outline"
+                onClick={handleLogout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Log out
+              </Button>
+            ) : (
+              <Button 
+                variant="default"
+                onClick={() => setShowAuthDialog(true)}
+              >
+                Join Network
+              </Button>
+            )}
           </div>
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-6 w-6" />
