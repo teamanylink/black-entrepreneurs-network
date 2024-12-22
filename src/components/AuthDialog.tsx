@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface AuthDialogProps {
   open: boolean;
@@ -41,6 +42,8 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
       [e.target.name]: e.target.value,
     });
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,6 +81,7 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
           description: "Please check your email to verify your account",
         });
         onOpenChange(false);
+        navigate("/onboarding");
       }
     } else {
       const { data, error } = await supabase.auth.signInWithPassword({

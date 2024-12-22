@@ -83,6 +83,54 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          business_description: string | null
+          business_owner: boolean | null
+          created_at: string
+          facebook_url: string | null
+          first_name: string | null
+          id: string
+          instagram_url: string | null
+          last_name: string | null
+          linkedin_url: string | null
+          profile_image_url: string | null
+          twitter_url: string | null
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          business_description?: string | null
+          business_owner?: boolean | null
+          created_at?: string
+          facebook_url?: string | null
+          first_name?: string | null
+          id: string
+          instagram_url?: string | null
+          last_name?: string | null
+          linkedin_url?: string | null
+          profile_image_url?: string | null
+          twitter_url?: string | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          business_description?: string | null
+          business_owner?: boolean | null
+          created_at?: string
+          facebook_url?: string | null
+          first_name?: string | null
+          id?: string
+          instagram_url?: string | null
+          last_name?: string | null
+          linkedin_url?: string | null
+          profile_image_url?: string | null
+          twitter_url?: string | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
