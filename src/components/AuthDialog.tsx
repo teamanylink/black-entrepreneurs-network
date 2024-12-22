@@ -97,6 +97,7 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
         });
       } else {
         onOpenChange(false);
+        navigate("/dashboard/community");
       }
     }
   };
