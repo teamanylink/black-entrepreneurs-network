@@ -42,18 +42,26 @@ export default function Opportunities() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar */}
-          <OpportunitySidebar
-            selectedType={selectedType}
-            onTypeSelect={setSelectedType}
-          />
-
-          {/* Main content */}
-          <div className="flex-1">
-            {/* Search bar */}
-            <div className="flex gap-2 mb-6">
+      {/* Hero Section */}
+      <div className="relative h-[400px] bg-primary">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url("/lovable-uploads/301e3ec9-b8c2-41ae-9abd-b8b018af012b.png")',
+            opacity: 0.3
+          }}
+        />
+        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-white">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
+            Find Your Perfect Opportunity
+          </h1>
+          <p className="text-xl mb-8 text-center max-w-2xl">
+            Discover jobs, partnerships, and growth opportunities in our community
+          </p>
+          
+          {/* Search Bar */}
+          <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-2">
+            <div className="flex gap-2">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
@@ -63,12 +71,25 @@ export default function Opportunities() {
                   className="pl-10"
                 />
               </div>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="shrink-0">
                 <Filter className="h-4 w-4" />
               </Button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Opportunities grid */}
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Sidebar */}
+          <OpportunitySidebar
+            selectedType={selectedType}
+            onTypeSelect={setSelectedType}
+          />
+
+          {/* Opportunities Grid */}
+          <div className="flex-1">
             {isLoading ? (
               <div className="text-center py-8">Loading opportunities...</div>
             ) : opportunities.length === 0 ? (

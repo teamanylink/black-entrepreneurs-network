@@ -1,4 +1,4 @@
-import { Briefcase, Users, GraduationCap, BookOpen } from "lucide-react";
+import { Briefcase, Users, GraduationCap, BookOpen, Filter } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
