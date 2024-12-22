@@ -5,6 +5,7 @@ import { OpportunitySidebar } from "@/components/OpportunitySidebar";
 import { OpportunitiesHero } from "@/components/OpportunitiesHero";
 import { OpportunitiesGrid } from "@/components/OpportunitiesGrid";
 import { AuthDialog } from "@/components/AuthDialog";
+import { Navbar } from "@/components/Navbar";
 
 export default function Opportunities() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,6 +41,7 @@ export default function Opportunities() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
       <OpportunitiesHero 
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
