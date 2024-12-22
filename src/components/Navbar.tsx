@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { AuthDialog } from "@/components/AuthDialog";
 
 export const Navbar = () => {
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+
   return (
     <nav className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-3">
@@ -16,13 +20,24 @@ export const Navbar = () => {
             <a href="#news" className="text-muted-foreground hover:text-primary transition-colors">News</a>
             <a href="#stories" className="text-muted-foreground hover:text-primary transition-colors">Success Stories</a>
             <a href="#resources" className="text-muted-foreground hover:text-primary transition-colors">Resources</a>
-            <Button variant="default">Join Network</Button>
+            <Button 
+              variant="default"
+              onClick={() => setShowAuthDialog(true)}
+            >
+              Join Network
+            </Button>
           </div>
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-6 w-6" />
           </Button>
         </div>
       </div>
+
+      <AuthDialog 
+        open={showAuthDialog}
+        onOpenChange={setShowAuthDialog}
+        opportunityId={null}
+      />
     </nav>
   );
 };
