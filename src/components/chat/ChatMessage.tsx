@@ -24,14 +24,35 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", message.sender)
-        .single();
+      // Only fetch profile for actual user messages, not system messages
+      if (message.sender === "Assistant" || !message.sender) {
+        return;
+      }
 
-      if (!error && data) {
-        setProfile(data);
+      try {
+        // Validate UUID format using a regex
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (!uuidRegex.test(message.sender)) {
+          console.log("Invalid UUID format for sender:", message.sender);
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", message.sender)
+          .maybeSingle();
+
+        if (error) {
+          console.error("Error fetching profile:", error);
+          return;
+        }
+
+        if (data) {
+          setProfile(data);
+        }
+      } catch (error) {
+        console.error("Error in fetchProfile:", error);
       }
     };
 
@@ -63,7 +84,9 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
           </ProfileCard>
         ) : (
           <Avatar className="h-8 w-8">
-            <AvatarFallback>?</AvatarFallback>
+            <AvatarFallback>
+              {message.isUser ? "U" : "A"}
+            </AvatarFallback>
           </Avatar>
         )}
         <div
