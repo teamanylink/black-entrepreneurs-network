@@ -56,7 +56,7 @@ export function ContentGeneratorDialog({ type, open, onOpenChange }: ContentGene
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
+      <DialogContent className="max-w-4xl h-[80vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>
             {type} Generator
@@ -87,12 +87,14 @@ export function ContentGeneratorDialog({ type, open, onOpenChange }: ContentGene
         </div>
         
         {generatedContent && (
-          <ScrollArea className="flex-1 mt-8">
-            <div className="p-6 border rounded-lg bg-background">
-              <h2 className="text-xl font-semibold mb-4">Generated Content:</h2>
-              <div className="whitespace-pre-wrap">{generatedContent}</div>
-            </div>
-          </ScrollArea>
+          <div className="flex-1 mt-4 overflow-hidden">
+            <ScrollArea className="h-full pr-4">
+              <div className="p-6 border rounded-lg bg-background">
+                <h2 className="text-xl font-semibold mb-4">Generated Content:</h2>
+                <div className="whitespace-pre-wrap">{generatedContent}</div>
+              </div>
+            </ScrollArea>
+          </div>
         )}
       </DialogContent>
     </Dialog>
