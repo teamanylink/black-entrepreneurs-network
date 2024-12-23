@@ -25,20 +25,20 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#4A2545",
+          DEFAULT: "#1A1A1A",
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#C4A24C",
+          DEFAULT: "#F6B352",
           foreground: "#1A1A1A",
         },
         accent: {
-          DEFAULT: "#C4A24C", // Updated to match the goldish yellow
-          foreground: "#1A1A1A", // Updated for better contrast with the new accent color
+          DEFAULT: "#F6B352",
+          foreground: "#1A1A1A",
         },
         muted: {
-          DEFAULT: "#F3F4F6",
-          foreground: "#4A5568",
+          DEFAULT: "#F8F9FA",
+          foreground: "#6C757D",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
