@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { OpportunitySidebar } from "@/components/OpportunitySidebar";
 import { OpportunitiesHero } from "@/components/OpportunitiesHero";
 import { OpportunitiesGrid } from "@/components/OpportunitiesGrid";
+import { NewsGrid } from "@/components/NewsGrid";
 import { AuthDialog } from "@/components/AuthDialog";
 import { Navbar } from "@/components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
@@ -27,7 +28,7 @@ export default function Opportunities() {
         query = query.or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
       }
 
-      if (selectedType) {
+      if (selectedType && selectedType !== "news") {
         query = query.eq("type", selectedType);
       }
 
@@ -42,6 +43,19 @@ export default function Opportunities() {
     setShowAuthDialog(true);
   };
 
+  const renderContent = () => {
+    if (selectedType === "news") {
+      return <NewsGrid />;
+    }
+    return (
+      <OpportunitiesGrid
+        opportunities={opportunities}
+        onApply={handleApply}
+        isLoading={isLoading}
+      />
+    );
+  };
+
   return (
     <div className="min-h-screen h-screen flex flex-col bg-background">
       <Navbar />
@@ -50,7 +64,6 @@ export default function Opportunities() {
         <Outlet />
       ) : (
         <div className="flex flex-1">
-          {/* Sidebar */}
           <aside className="w-64 bg-[#ebeaea] border-r border-border h-full">
             <OpportunitySidebar
               selectedType={selectedType}
@@ -58,7 +71,6 @@ export default function Opportunities() {
             />
           </aside>
   
-          {/* Main Content */}
           <div className="flex-1">
             <OpportunitiesHero 
               searchTerm={searchTerm}
@@ -66,11 +78,7 @@ export default function Opportunities() {
             />
   
             <div className="mx-auto px-4 py-8">
-              <OpportunitiesGrid
-                opportunities={opportunities}
-                onApply={handleApply}
-                isLoading={isLoading}
-              />
+              {renderContent()}
             </div>
           </div>
         </div>
@@ -83,5 +91,4 @@ export default function Opportunities() {
       />
     </div>
   );
-  
 }
