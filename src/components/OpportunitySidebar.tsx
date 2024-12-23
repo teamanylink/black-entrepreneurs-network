@@ -13,6 +13,7 @@ const opportunityTypes = [
   { id: "joint_venture", label: "Joint Ventures", icon: Users },
   { id: "internship", label: "Internships", icon: GraduationCap },
   { id: "workshop", label: "Workshops", icon: BookOpen },
+  { id: "news", label: "News Articles", icon: BookOpen }
 ];
 
 interface OpportunitySidebarProps {
