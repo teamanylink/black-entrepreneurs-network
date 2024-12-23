@@ -45,11 +45,12 @@ export default function Opportunities() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
       {isDetailsPage ? (
         <Outlet />
       ) : (
-        <div className="flex">
-          <aside className="w-64 h-screen bg-muted fixed left-0 top-16 border-r border-border overflow-y-auto">
+        <div className="flex pt-16">
+          <aside className="w-64 bg-muted border-r border-border">
             <OpportunitySidebar
               selectedType={selectedType}
               onTypeSelect={setSelectedType}
@@ -57,14 +58,12 @@ export default function Opportunities() {
           </aside>
           
           <div className="flex-1 ml-64">
-            <div className="fixed top-16 left-64 right-0 bg-background z-10">
-              <OpportunitiesHero 
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-              />
-            </div>
+            <OpportunitiesHero 
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+            />
 
-            <div className="container mx-auto px-4 py-8 mt-[320px]">
+            <div className="container mx-auto px-4 py-8">
               <OpportunitiesGrid
                 opportunities={opportunities}
                 onApply={handleApply}
