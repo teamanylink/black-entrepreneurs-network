@@ -1,7 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar } from "@/components/ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 
@@ -59,18 +58,11 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
       </div>
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
-          <div className="flex gap-3 items-center">
-            <Avatar className="h-10 w-10 bg-secondary/10">
-              <span className="font-semibold text-secondary">
-                {opportunity.company.charAt(0)}
-              </span>
-            </Avatar>
-            <div>
-              <h3 className="font-semibold group-hover:text-secondary transition-colors">
-                {opportunity.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">{opportunity.company}</p>
-            </div>
+          <div>
+            <h3 className="font-semibold group-hover:text-secondary transition-colors">
+              {opportunity.title}
+            </h3>
+            <p className="text-sm text-muted-foreground">{opportunity.company}</p>
           </div>
           <Button
             variant="ghost"
