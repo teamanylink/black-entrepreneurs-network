@@ -16,81 +16,67 @@ import Ventures from "./pages/Ventures";
 
 const queryClient = new QueryClient();
 
-// Protected Route component with improved logic
+// Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { session } = useAuth();
-  const location = useLocation();
+const { session } = useAuth();
+const location = useLocation();
 
-  if (!session) {
-    // Save the attempted URL for redirect after login
-    return <Navigate to="/" state={{ from: location.pathname }} replace />;
-  }
+console.log("Protected Route Check - Current Path:", location.pathname);
+console.log("Protected Route - Session Status:", !!session);
 
-  return <>{children}</>;
-};
+if (!session) {
+console.log("No session found, redirecting to home");
+return <Navigate to="/" state={{ from: location }} replace />;
+}
 
-// Auth wrapper to handle authentication state and redirects
-const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
-  const { session } = useAuth();
-  const location = useLocation();
-  
-  // If user is authenticated and trying to access the index page,
-  // redirect them to dashboard
-  if (session && location.pathname === '/') {
-    return <Navigate to="/dashboard" replace />;
-  }
-  
-  return <>{children}</>;
+console.log("Session verified, rendering protected content");
+return <>{children}</>;
 };
 
 const App = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AuthWrapper>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Index />} />
-              <Route path="/opportunities" element={<Opportunities />}>
-                <Route path=":id" element={<OpportunityDetails />} />
-              </Route>
+const { session } = useAuth();
+console.log("App Component - Session:", session);
 
-              {/* Protected Routes */}
-              <Route
-                path="/onboarding"
-                element={
-                  
-                    <Onboarding />
-               
-                }
-              />
+return (
+<QueryClientProvider client={queryClient}>
+<TooltipProvider>
+<Toaster />
+<Sonner />
+<BrowserRouter>
+<Routes>
+{/* Public Routes */}
+<Route path="/" element={<Index />} />
+<Route path="/opportunities" element={<Opportunities />}>
+<Route path=":id" element={<OpportunityDetails />} />
+</Route>
+ {/* Protected Routes */}
+ <Route
+          path="/onboarding"
+          element={
+              <Onboarding />
+          }
+        />
+        
+        <Route
+          path="/dashboard/*"
+          element={
+              <Dashboard />
+          }
+        >
+          <Route path="jobs" element={<Jobs />} />
+          <Route path="ventures" element={<Ventures />} />
+          <Route path="opportunities" element={<Opportunities />} />
+          <Route path="community" element={<Community />} />
+          <Route path="chat" element={<Chat />} />
+        </Route>
 
-              <Route
-                path="/opportunities"
-                element={
-                 
-                    <Opportunities />
-                 
-                }
-              >
-                <Route path="jobs" element={<Jobs />} />
-                <Route path="ventures" element={<Ventures />} />
-                <Route path="opportunities" element={<Opportunities />} />
-                <Route path="community" element={<Community />} />
-                <Route path="chat" element={<Chat />} />
-              </Route>
-
-              {/* Catch-all redirect */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </AuthWrapper>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  </TooltipProvider>
+</QueryClientProvider>
+);
 };
 
 export default App;
