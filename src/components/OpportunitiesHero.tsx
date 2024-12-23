@@ -40,14 +40,14 @@ export function OpportunitiesHero({ searchTerm, onSearchChange, selectedType }: 
                   placeholder="Search for jobs, opportunities..."
                   value={searchTerm}
                   onChange={(e) => onSearchChange(e.target.value)}
-                  className="pl-10 bg-background border-0 focus-visible:ring-0"
+                  className="pl-10 bg-background border focus-visible:ring-0"
                 />
               </div>
               <div className="relative w-48">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   placeholder="Location"
-                  className="pl-10 bg-background border-0 focus-visible:ring-0"
+                  className="pl-10 bg-background border focus-visible:ring-0"
                 />
               </div>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -75,22 +75,24 @@ export function OpportunitiesHero({ searchTerm, onSearchChange, selectedType }: 
             </div>
           </div>
 
-          {/* Categories - Now showing for all options */}
-          <div>
-            <h2 className="text-lg font-semibold mb-6">Categories</h2>
-            <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  variant="outline"
-                  className="flex flex-col items-center justify-center h-24 hover:bg-secondary/5 border-none shadow-sm"
-                >
-                  <span className="text-2xl mb-2">{category.icon}</span>
-                  <span className="text-sm">{category.label}</span>
-                </Button>
-              ))}
+          {/* Categories - Only show when news is selected */}
+          {selectedType === "news" && (
+            <div>
+              <h2 className="text-lg font-semibold mb-6">Categories</h2>
+              <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
+                {categories.map((category) => (
+                  <Button
+                    key={category.id}
+                    variant="outline"
+                    className="flex flex-col items-center justify-center h-24 hover:bg-secondary/5 border-none shadow-sm"
+                  >
+                    <span className="text-2xl mb-2">{category.icon}</span>
+                    <span className="text-sm">{category.label}</span>
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
