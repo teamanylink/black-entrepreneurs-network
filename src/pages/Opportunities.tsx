@@ -49,7 +49,7 @@ export default function Opportunities() {
         <Outlet />
       ) : (
         <div className="flex">
-          <aside className="w-64 min-h-[calc(100vh-4rem)] bg-muted fixed left-0 top-16 border-r border-border">
+          <aside className="w-64 h-screen bg-muted fixed left-0 top-16 border-r border-border overflow-y-auto">
             <OpportunitySidebar
               selectedType={selectedType}
               onTypeSelect={setSelectedType}
@@ -57,12 +57,14 @@ export default function Opportunities() {
           </aside>
           
           <div className="flex-1 ml-64">
-            <OpportunitiesHero 
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-            />
+            <div className="fixed top-16 left-64 right-0 bg-background z-10">
+              <OpportunitiesHero 
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+              />
+            </div>
 
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8 mt-[320px]">
               <OpportunitiesGrid
                 opportunities={opportunities}
                 onApply={handleApply}
