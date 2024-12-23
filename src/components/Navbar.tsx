@@ -43,12 +43,12 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#ebeaea] shadow-sm">
+    <nav className="bg-[#d19e57] shadow-sm">
       <div className=" mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link to="/" className="text-2xl font-bold text-primary">B.E.N.</Link>
-            <span className="hidden md:inline text-sm text-muted-foreground">Business Empowerment Network</span>
+            <span className="hidden md:inline text-sm text-foreground">Business Empowerment Network</span>
           </div>
           <div className="hidden md:flex items-center space-x-6">
             {/* <Link to="/opportunities" className="text-muted-foreground hover:text-primary transition-colors">Opportunities</Link>
