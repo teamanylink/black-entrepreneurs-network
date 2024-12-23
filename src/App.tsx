@@ -18,70 +18,65 @@ const queryClient = new QueryClient();
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { session } = useAuth();
-  const location = useLocation();
+const { session } = useAuth();
+const location = useLocation();
 
-  console.log("Protected Route Check - Current Path:", location.pathname);
-  console.log("Protected Route - Session Status:", !!session);
+console.log("Protected Route Check - Current Path:", location.pathname);
+console.log("Protected Route - Session Status:", !!session);
 
-  if (!session) {
-    console.log("No session found, redirecting to home");
-    return <Navigate to="/" state={{ from: location }} replace />;
-  }
+if (!session) {
+console.log("No session found, redirecting to home");
+return <Navigate to="/" state={{ from: location }} replace />;
+}
 
-  console.log("Session verified, rendering protected content");
-  return <>{children}</>;
+console.log("Session verified, rendering protected content");
+return <>{children}</>;
 };
 
 const App = () => {
-  const { session } = useAuth();
-  console.log("App Component - Session:", session);
+const { session } = useAuth();
+console.log("App Component - Session:", session);
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/opportunities" element={<Opportunities />}>
-              <Route path=":id" element={<OpportunityDetails />} />
-            </Route>
+return (
+<QueryClientProvider client={queryClient}>
+<TooltipProvider>
+<Toaster />
+<Sonner />
+<BrowserRouter>
+<Routes>
+{/* Public Routes */}
+<Route path="/" element={<Index />} />
+<Route path="/opportunities" element={<Opportunities />}>
+<Route path=":id" element={<OpportunityDetails />} />
+</Route>
+ {/* Protected Routes */}
+ <Route
+          path="/onboarding"
+          element={
+              <Onboarding />
+          }
+        />
+        
+        <Route
+          path="/dashboard/*"
+          element={
+              <Dashboard />
+          }
+        >
+          <Route path="jobs" element={<Jobs />} />
+          <Route path="ventures" element={<Ventures />} />
+          <Route path="opportunities" element={<Opportunities />} />
+          <Route path="community" element={<Community />} />
+          <Route path="chat" element={<Chat />} />
+        </Route>
 
-            {/* Protected Routes */}
-            <Route
-              path="/onboarding"
-              element={
-                <ProtectedRoute>
-                  <Onboarding />
-                </ProtectedRoute>
-              }
-            />
-            
-            <Route
-              path="/dashboard/*"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            >
-              <Route path="jobs" element={<Jobs />} />
-              <Route path="ventures" element={<Ventures />} />
-              <Route path="opportunities" element={<Opportunities />} />
-              <Route path="community" element={<Community />} />
-              <Route path="chat" element={<Chat />} />
-            </Route>
-
-            {/* Catch-all redirect */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  </TooltipProvider>
+</QueryClientProvider>
+);
 };
 
 export default App;
