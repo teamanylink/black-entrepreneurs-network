@@ -24,8 +24,8 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/" replace />;
   }
   
-  console.log("Session exists, allowing access to protected route"); // Debug log
-  return children;
+  console.log("Session exists, rendering protected content"); // Debug log
+  return <>{children}</>;
 };
 
 const App = () => {
@@ -44,26 +44,18 @@ const App = () => {
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
-            
-            {/* Protected Routes */}
-            <Route
-              path="/onboarding"
-              element={
-                <ProtectedRoute>
-                  <Onboarding />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/onboarding" element={<Onboarding />} />
             
             {/* Protected Dashboard Routes */}
             <Route
-              path="/dashboard/*"
+              path="/dashboard"
               element={
                 <ProtectedRoute>
                   <Dashboard />
                 </ProtectedRoute>
               }
             >
+              <Route index element={<Dashboard />} />
               <Route path="community" element={<Community />} />
               <Route path="chat" element={<Chat />} />
             </Route>
