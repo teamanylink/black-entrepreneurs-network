@@ -11,26 +11,28 @@ import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import Community from "./pages/Community";
 import Chat from "./pages/Chat";
+import Jobs from "./pages/Jobs";
+import Ventures from "./pages/Ventures";
 
 const queryClient = new QueryClient();
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { session } = useAuth();
-  console.log("Protected Route - Session:", session); // Debug log
+  console.log("Protected Route - Session:", session);
   
   if (!session) {
-    console.log("No session, redirecting to home"); // Debug log
+    console.log("No session, redirecting to home");
     return <Navigate to="/" replace />;
   }
   
-  console.log("Session exists, rendering protected content"); // Debug log
+  console.log("Session exists, rendering protected content");
   return <>{children}</>;
 };
 
 const App = () => {
   const { session } = useAuth();
-  console.log("App Component - Session:", session); // Debug log
+  console.log("App Component - Session:", session);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -56,6 +58,9 @@ const App = () => {
               }
             >
               <Route index element={<Dashboard />} />
+              <Route path="jobs" element={<Jobs />} />
+              <Route path="ventures" element={<Ventures />} />
+              <Route path="opportunities" element={<Opportunities />} />
               <Route path="community" element={<Community />} />
               <Route path="chat" element={<Chat />} />
             </Route>

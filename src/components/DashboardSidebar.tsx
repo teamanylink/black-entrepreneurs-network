@@ -1,4 +1,4 @@
-import { Users, MessageSquare, Briefcase } from "lucide-react";
+import { Users, MessageSquare, Briefcase, Search, Building2, Handshake } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -13,6 +13,21 @@ import {
 
 const menuItems = [
   {
+    title: "Jobs",
+    url: "/dashboard/jobs",
+    icon: Briefcase,
+  },
+  {
+    title: "Joint Ventures",
+    url: "/dashboard/ventures",
+    icon: Handshake,
+  },
+  {
+    title: "Opportunities",
+    url: "/dashboard/opportunities",
+    icon: Building2,
+  },
+  {
     title: "Community",
     url: "/dashboard/community",
     icon: Users,
@@ -22,18 +37,13 @@ const menuItems = [
     url: "/dashboard/chat",
     icon: MessageSquare,
   },
-  {
-    title: "Opportunities",
-    url: "/opportunities",
-    icon: Briefcase,
-  },
 ];
 
 export function DashboardSidebar() {
   const location = useLocation();
 
   return (
-    <Sidebar>
+    <Sidebar className="bg-gray-100 border-r">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
