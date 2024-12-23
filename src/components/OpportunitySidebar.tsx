@@ -1,4 +1,4 @@
-import { Briefcase, Users, GraduationCap, BookOpen, Filter, Newspaper, Handshake } from "lucide-react";
+import { Briefcase, Users, GraduationCap, BookOpen, Filter, Newspaper, Handshake, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +14,7 @@ const opportunityTypes = [
   { id: "internship", label: "Internships", icon: GraduationCap },
   { id: "workshop", label: "Workshops", icon: BookOpen },
   { id: "news", label: "News Articles", icon: Newspaper },
-  { id: "business_plan_generator", label: "Business Plan Generator", icon: Briefcase}
+  { id: "business_plan_generator", label: "Business Plan Generator", icon: FileText }
 ];
 
 interface OpportunitySidebarProps {

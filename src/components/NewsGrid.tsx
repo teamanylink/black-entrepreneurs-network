@@ -11,19 +11,22 @@ export function NewsGrid({ isLoading }: NewsGridProps) {
       title: "Tech Startups Leading Innovation",
       description: "How Black-owned tech startups are reshaping the industry landscape",
       category: "Technology",
-      date: "Mar 15, 2024"
+      date: "Mar 15, 2024",
+      image: "/lovable-uploads/301e3ec9-b8c2-41ae-9abd-b8b018af012b.png"
     },
     {
       title: "Funding Opportunities Expand",
       description: "New initiatives provide increased access to capital for entrepreneurs",
       category: "Finance",
-      date: "Mar 14, 2024"
+      date: "Mar 14, 2024",
+      image: "/lovable-uploads/69b4951b-76c0-4a2a-af3d-fc03cdcf9f01.png"
     },
     {
       title: "Community Success Story",
       description: "Local business owner shares journey to seven-figure success",
       category: "Success Stories",
-      date: "Mar 13, 2024"
+      date: "Mar 13, 2024",
+      image: "/placeholder.svg"
     }
   ];
 
@@ -42,7 +45,14 @@ export function NewsGrid({ isLoading }: NewsGridProps) {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {newsItems.map((item, index) => (
-        <Card key={index} className="hover:shadow-lg transition-shadow">
+        <Card key={index} className="hover:shadow-lg transition-shadow overflow-hidden">
+          <div className="aspect-video relative">
+            <img 
+              src={item.image} 
+              alt={item.title}
+              className="object-cover w-full h-full"
+            />
+          </div>
           <CardHeader>
             <div className="text-sm text-muted-foreground mb-2">
               {item.category} • {item.date}
