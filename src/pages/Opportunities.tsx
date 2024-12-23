@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { OpportunitySidebar } from "@/components/OpportunitySidebar";
 import { OpportunitiesHero } from "@/components/OpportunitiesHero";
 import { OpportunitiesGrid } from "@/components/OpportunitiesGrid";
+import { BusinessPlanGrid } from "@/components/BusinessPlanGrid";
 import { NewsGrid } from "@/components/NewsGrid";
 import { AuthDialog } from "@/components/AuthDialog";
 import { Navbar } from "@/components/Navbar";
@@ -28,7 +29,7 @@ export default function Opportunities() {
         query = query.or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
       }
 
-      if (selectedType && selectedType !== "news") {
+      if (selectedType && selectedType !== "news" && selectedType !== "business_plan_generator") {
         query = query.eq("type", selectedType);
       }
 
@@ -46,6 +47,9 @@ export default function Opportunities() {
   const renderContent = () => {
     if (selectedType === "news") {
       return <NewsGrid />;
+    }
+    if (selectedType === "business_plan_generator") {
+      return <BusinessPlanGrid />;
     }
     return (
       <OpportunitiesGrid
