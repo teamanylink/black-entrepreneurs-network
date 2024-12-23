@@ -1,4 +1,3 @@
-import { Briefcase, MapPin, Calendar, User } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -58,12 +57,10 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
       <CardContent className="pb-4">
         <div className="space-y-2 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4" />
             <span>{opportunity.location}</span>
           </div>
           {opportunity.salary_range && (
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
               <span>{opportunity.salary_range}</span>
             </div>
           )}
