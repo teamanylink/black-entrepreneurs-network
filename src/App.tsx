@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Opportunities from "./pages/Opportunities";
@@ -19,14 +19,17 @@ const queryClient = new QueryClient();
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { session } = useAuth();
-  console.log("Protected Route - Session:", session);
+  const location = useLocation();
+  
+  console.log("Protected Route Check - Current Path:", location.pathname);
+  console.log("Protected Route - Session Status:", !!session);
   
   if (!session) {
-    console.log("No session, redirecting to home");
-    return <Navigate to="/" replace />;
+    console.log("No session found, redirecting to home");
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
   
-  console.log("Session exists, rendering protected content");
+  console.log("Session verified, rendering protected content");
   return <>{children}</>;
 };
 
@@ -46,18 +49,25 @@ const App = () => {
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
-            <Route path="/onboarding" element={<Onboarding />} />
             
-            {/* Protected Dashboard Routes */}
+            {/* Protected Routes */}
             <Route
-              path="/dashboard"
+              path="/onboarding"
+              element={
+                <ProtectedRoute>
+                  <Onboarding />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/dashboard/*"
               element={
                 <ProtectedRoute>
                   <Dashboard />
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Dashboard />} />
               <Route path="jobs" element={<Jobs />} />
               <Route path="ventures" element={<Ventures />} />
               <Route path="opportunities" element={<Opportunities />} />
