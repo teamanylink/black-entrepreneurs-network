@@ -37,7 +37,7 @@ export function OpportunitySidebar({ selectedType, onTypeSelect }: OpportunitySi
               variant={selectedType === type.id ? "secondary" : "ghost"}
               className={cn(
                 "w-full justify-start gap-2",
-                selectedType === type.id && "bg-secondary text-secondary-foreground"
+                selectedType === type.id && "bg-[#d19e57] text-secondary-foreground"
               )}
               onClick={() => onTypeSelect(selectedType === type.id ? null : type.id)}
             >
