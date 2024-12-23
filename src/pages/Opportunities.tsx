@@ -48,7 +48,7 @@ export default function Opportunities() {
       {isDetailsPage ? (
         <Outlet />
       ) : (
-        <>
+        <div className="flex flex-col">
           <OpportunitiesHero 
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -56,10 +56,12 @@ export default function Opportunities() {
 
           <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row gap-6">
-              <OpportunitySidebar
-                selectedType={selectedType}
-                onTypeSelect={setSelectedType}
-              />
+              <aside className="w-full md:w-64 shrink-0">
+                <OpportunitySidebar
+                  selectedType={selectedType}
+                  onTypeSelect={setSelectedType}
+                />
+              </aside>
 
               <div className="flex-1">
                 <OpportunitiesGrid
@@ -70,7 +72,7 @@ export default function Opportunities() {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
 
       <AuthDialog

@@ -1,4 +1,4 @@
-import { Search, Filter } from "lucide-react";
+import { Search, MapPin, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -9,42 +9,49 @@ interface OpportunitiesHeroProps {
 
 export function OpportunitiesHero({ searchTerm, onSearchChange }: OpportunitiesHeroProps) {
   return (
-    <div className="relative h-[400px] bg-primary">
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url("/lovable-uploads/69b4951b-76c0-4a2a-af3d-fc03cdcf9f01.png")',
-          opacity: 0.6
-        }}
-      />
-      <div className="absolute inset-0 bg-primary/40" />
-      <div className="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-white">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-          Find Your Perfect Opportunity
-        </h1>
-        <p className="text-xl mb-8 text-center max-w-2xl">
-          Discover jobs, partnerships, and growth opportunities in our community
-        </p>
-        
-        {/* Search Bar */}
-        <div className="w-full max-w-3xl bg-white/10 backdrop-blur-md rounded-lg shadow-lg p-3 border border-white/20">
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 h-4 w-4" />
+    <div className="bg-background py-8 border-b">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col gap-8">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-semibold">Find Opportunities</h1>
+            <Button variant="outline" size="sm">
+              Post New
+            </Button>
+          </div>
+          
+          <div className="flex gap-4 items-center">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 placeholder="Search opportunities..."
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="pl-10 bg-transparent border-white/20 text-white placeholder:text-white/70"
+                className="pl-10 bg-background"
               />
             </div>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 transition-colors duration-200"
-            >
+            <div className="relative w-48">
+              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Location"
+                className="pl-10 bg-background"
+              />
+            </div>
+            <Button variant="outline" size="icon">
               <Filter className="h-4 w-4" />
             </Button>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            {['All Jobs', 'Remote', 'Full-time', 'Part-time', 'Contract', 'Internship'].map((category) => (
+              <Button
+                key={category}
+                variant="outline"
+                size="sm"
+                className="rounded-full bg-background hover:bg-accent"
+              >
+                {category}
+              </Button>
+            ))}
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
-import { Briefcase, MapPin, Calendar } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Briefcase, MapPin, Calendar, User } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link, useNavigate } from "react-router-dom";
+import { Avatar } from "@/components/ui/avatar";
+import { useNavigate } from "react-router-dom";
 
 interface OpportunityCardProps {
   opportunity: {
@@ -28,44 +29,34 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
     });
   };
 
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case "job":
-        return "bg-blue-500";
-      case "joint_venture":
-        return "bg-purple-500";
-      case "internship":
-        return "bg-green-500";
-      case "workshop":
-        return "bg-orange-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
   const handleCardClick = () => {
     navigate(`/opportunities/${opportunity.id}`);
   };
 
   return (
-    <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={handleCardClick}>
-      <CardHeader>
-        <div className="flex justify-between items-start mb-2">
-          <Badge className={getTypeColor(opportunity.type)}>
+    <Card className="group hover:shadow-lg transition-all duration-200 cursor-pointer" onClick={handleCardClick}>
+      <CardHeader className="pb-2">
+        <div className="flex justify-between items-start">
+          <div className="flex gap-3 items-center">
+            <Avatar className="h-10 w-10 bg-primary/10">
+              <span className="font-semibold text-primary">
+                {opportunity.company.charAt(0)}
+              </span>
+            </Avatar>
+            <div>
+              <h3 className="font-semibold group-hover:text-primary transition-colors">
+                {opportunity.title}
+              </h3>
+              <p className="text-sm text-muted-foreground">{opportunity.company}</p>
+            </div>
+          </div>
+          <Badge variant="secondary" className="bg-secondary/10 text-secondary-foreground">
             {opportunity.type.replace("_", " ")}
           </Badge>
-          <span className="text-sm text-muted-foreground">
-            {formatDate(opportunity.created_at)}
-          </span>
         </div>
-        <CardTitle className="line-clamp-2">{opportunity.title}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pb-4">
         <div className="space-y-2 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Briefcase className="h-4 w-4" />
-            <span>{opportunity.company}</span>
-          </div>
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             <span>{opportunity.location}</span>
@@ -78,15 +69,20 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
           )}
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="pt-0 flex justify-between items-center">
+        <span className="text-xs text-muted-foreground">
+          Posted {formatDate(opportunity.created_at)}
+        </span>
         <Button
-          className="w-full"
+          size="sm"
+          variant="outline"
           onClick={(e) => {
             e.stopPropagation();
             onApply(opportunity.id);
           }}
+          className="opacity-0 group-hover:opacity-100 transition-opacity"
         >
-          Apply Now
+          Quick Apply
         </Button>
       </CardFooter>
     </Card>
