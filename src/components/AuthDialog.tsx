@@ -81,10 +81,9 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
         } else {
           toast({
             title: "Success",
-            description: "Account created successfully! Please complete your profile.",
+            description: "Account created successfully! Please sign in.",
           });
-          onOpenChange(false);
-          navigate("/onboarding"); // Redirect to onboarding after successful signup
+          setIsSignUp(false); // Switch to sign in mode
         }
       } catch (err) {
         console.error("Sign up error:", err);
