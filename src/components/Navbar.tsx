@@ -43,8 +43,8 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-3">
+    <nav className="bg-[#ebeaea] shadow-sm">
+      <div className=" mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link to="/" className="text-2xl font-bold text-primary">B.E.N.</Link>

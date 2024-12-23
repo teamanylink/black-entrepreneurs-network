@@ -62,18 +62,18 @@ const App = () => {
               <Route
                 path="/onboarding"
                 element={
-                  <ProtectedRoute>
+                  
                     <Onboarding />
-                  </ProtectedRoute>
+               
                 }
               />
 
               <Route
-                path="/dashboard"
+                path="/opportunities"
                 element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
+                 
+                    <Opportunities />
+                 
                 }
               >
                 <Route path="jobs" element={<Jobs />} />

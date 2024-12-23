@@ -43,27 +43,29 @@ export default function Opportunities() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen h-screen flex flex-col bg-background">
       <Navbar />
-      
+  
       {isDetailsPage ? (
         <Outlet />
       ) : (
-        <div className="flex pt-16">
-          <aside className="w-64 bg-muted border-r border-border">
+        <div className="flex flex-1">
+          {/* Sidebar */}
+          <aside className="w-64 bg-[#ebeaea] border-r border-border h-full">
             <OpportunitySidebar
               selectedType={selectedType}
               onTypeSelect={setSelectedType}
             />
           </aside>
-          
-          <div className="flex-1 ml-64">
+  
+          {/* Main Content */}
+          <div className="flex-1">
             <OpportunitiesHero 
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
             />
-
-            <div className="container mx-auto px-4 py-8">
+  
+            <div className="mx-auto px-4 py-8">
               <OpportunitiesGrid
                 opportunities={opportunities}
                 onApply={handleApply}
@@ -73,7 +75,7 @@ export default function Opportunities() {
           </div>
         </div>
       )}
-
+  
       <AuthDialog
         open={showAuthDialog}
         onOpenChange={setShowAuthDialog}
@@ -81,4 +83,5 @@ export default function Opportunities() {
       />
     </div>
   );
+  
 }
