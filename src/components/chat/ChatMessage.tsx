@@ -1,6 +1,9 @@
-import { Avatar } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
 import { FileIcon } from "lucide-react";
+import { ProfileCard } from "@/components/ProfileCard";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ChatMessageProps {
   message: {
@@ -17,6 +20,24 @@ interface ChatMessageProps {
 }
 
 export const ChatMessage = ({ message }: ChatMessageProps) => {
+  const [profile, setProfile] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", message.sender)
+        .single();
+
+      if (!error && data) {
+        setProfile(data);
+      }
+    };
+
+    fetchProfile();
+  }, [message.sender]);
+
   return (
     <div
       className={`flex ${
@@ -28,7 +49,23 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
           message.isUser ? "flex-row-reverse" : "flex-row"
         }`}
       >
-        <Avatar className="h-8 w-8" />
+        {profile ? (
+          <ProfileCard profile={profile}>
+            <Avatar className="h-8 w-8 cursor-pointer">
+              <AvatarImage src={profile.profile_image_url || ""} />
+              <AvatarFallback>
+                {[profile.first_name?.[0], profile.last_name?.[0]]
+                  .filter(Boolean)
+                  .join("")
+                  .toUpperCase() || "?"}
+              </AvatarFallback>
+            </Avatar>
+          </ProfileCard>
+        ) : (
+          <Avatar className="h-8 w-8">
+            <AvatarFallback>?</AvatarFallback>
+          </Avatar>
+        )}
         <div
           className={`rounded-lg p-4 ${
             message.isUser
