@@ -119,7 +119,7 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
             description: "Successfully signed in",
           });
           onOpenChange(false);
-          navigate("/dashboard/community");
+          navigate("/opportunities");
         }
       } catch (err) {
         console.error("Sign in error:", err);
