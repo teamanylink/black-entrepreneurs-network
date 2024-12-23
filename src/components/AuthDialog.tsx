@@ -56,7 +56,7 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
             description: "Account created successfully! Please complete your profile.",
           });
           onOpenChange(false);
-          navigate("/onboarding"); // Redirect to onboarding after successful signup
+          navigate("/onboarding");
         }
       } catch (err) {
         console.error("Sign up error:", err);

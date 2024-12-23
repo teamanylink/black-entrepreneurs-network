@@ -40,11 +40,10 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
-            <Route path="/dashboard" element={<Dashboard />} />
             
             {/* Protected Routes */}
             <Route
