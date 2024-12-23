@@ -83,7 +83,8 @@ export function AuthDialog({ open, onOpenChange, opportunityId }: AuthDialogProp
             title: "Success",
             description: "Account created successfully! Please sign in.",
           });
-          setIsSignUp(false); // Switch to sign in mode
+          onOpenChange(false);
+          navigate("/onboarding");
         }
       } catch (err) {
         console.error("Sign up error:", err);
