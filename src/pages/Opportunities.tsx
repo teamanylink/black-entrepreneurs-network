@@ -75,6 +75,7 @@ export default function Opportunities() {
             <OpportunitiesHero 
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
+              selectedType={selectedType}
             />
   
             <div className="mx-auto px-4 py-8">
