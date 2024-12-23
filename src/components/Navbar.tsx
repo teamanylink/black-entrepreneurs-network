@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AuthDialog } from "@/components/AuthDialog";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,9 +9,17 @@ import { useToast } from "@/components/ui/use-toast";
 
 export const Navbar = () => {
   const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [loading, setLoading] = useState(true);  // State to track loading
   const { session } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Make sure to set loading to false after session is determined
+    if (session !== undefined) {
+      setLoading(false);
+    }
+  }, [session]);
 
   const handleLogout = async () => {
     try {
@@ -42,6 +50,11 @@ export const Navbar = () => {
     }
   };
 
+  if (loading) {
+    // Optionally, you can show a loader here if desired.
+    return null;
+  }
+
   return (
     <nav className="bg-[#d19e57] shadow-sm">
       <div className=" mx-auto px-4 py-3">
@@ -51,10 +64,6 @@ export const Navbar = () => {
             <span className="hidden md:inline text-sm text-foreground">Business Empowerment Network</span>
           </div>
           <div className="hidden md:flex items-center space-x-6">
-            {/* <Link to="/opportunities" className="text-muted-foreground hover:text-primary transition-colors">Opportunities</Link>
-            <a href="#news" className="text-muted-foreground hover:text-primary transition-colors">News</a>
-            <a href="#stories" className="text-muted-foreground hover:text-primary transition-colors">Success Stories</a>
-            <a href="#resources" className="text-muted-foreground hover:text-primary transition-colors">Resources</a> */}
             {session ? (
               <Button 
                 variant="outline"
