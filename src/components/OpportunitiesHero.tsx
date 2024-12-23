@@ -75,24 +75,22 @@ export function OpportunitiesHero({ searchTerm, onSearchChange, selectedType }: 
             </div>
           </div>
 
-          {/* Categories - Only show when news is selected */}
-          {selectedType === "news" && (
-            <div>
-              <h2 className="text-lg font-semibold mb-6">Categories</h2>
-              <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-                {categories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant="outline"
-                    className="flex flex-col items-center justify-center h-24 hover:bg-secondary/5 border-none shadow-sm"
-                  >
-                    <span className="text-2xl mb-2">{category.icon}</span>
-                    <span className="text-sm">{category.label}</span>
-                  </Button>
-                ))}
-              </div>
+          {/* Categories - Now showing for all options */}
+          <div>
+            <h2 className="text-lg font-semibold mb-6">Categories</h2>
+            <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  variant="outline"
+                  className="flex flex-col items-center justify-center h-24 hover:bg-secondary/5 border-none shadow-sm"
+                >
+                  <span className="text-2xl mb-2">{category.icon}</span>
+                  <span className="text-sm">{category.label}</span>
+                </Button>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
