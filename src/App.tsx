@@ -40,38 +40,25 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Index />} />
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
+            <Route path="/onboarding" element={<Onboarding />} />
             
-            {/* Protected Routes */}
+            {/* Protected Dashboard Routes */}
             <Route
-              path="/onboarding"
+              path="/dashboard"
               element={
                 <ProtectedRoute>
-                  <Onboarding />
+                  <Dashboard />
                 </ProtectedRoute>
               }
-            />
-            
-            {/* Protected Feature Routes */}
-            <Route
-              path="/dashboard/community"
-              element={
-                <ProtectedRoute>
-                  <Community />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dashboard/chat"
-              element={
-                <ProtectedRoute>
-                  <Chat />
-                </ProtectedRoute>
-              }
-            />
+            >
+              <Route index element={<Dashboard />} />
+              <Route path="community" element={<Community />} />
+              <Route path="chat" element={<Chat />} />
+            </Route>
 
             {/* Catch-all redirect */}
             <Route path="*" element={<Navigate to="/" replace />} />
