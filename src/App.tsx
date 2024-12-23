@@ -44,6 +44,7 @@ const App = () => {
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
+            <Route path="/dashboard" element={<Dashboard />} />
             
             {/* Protected Routes */}
             <Route
@@ -55,19 +56,23 @@ const App = () => {
               }
             />
             
-            {/* Protected Dashboard Routes */}
+            {/* Protected Feature Routes */}
             <Route
-              path="/dashboard"
+              path="/dashboard/community"
               element={
                 <ProtectedRoute>
-                  <Dashboard />
+                  <Community />
                 </ProtectedRoute>
               }
-            >
-              <Route index element={<Dashboard />} />
-              <Route path="community" element={<Community />} />
-              <Route path="chat" element={<Chat />} />
-            </Route>
+            />
+            <Route
+              path="/dashboard/chat"
+              element={
+                <ProtectedRoute>
+                  <Chat />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Catch-all redirect */}
             <Route path="*" element={<Navigate to="/" replace />} />
