@@ -7,8 +7,6 @@ import { OpportunitiesGrid } from "@/components/OpportunitiesGrid";
 import { AuthDialog } from "@/components/AuthDialog";
 import { Navbar } from "@/components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { OpportunitiesSidebar } from "@/components/OpportunitiesSidebar";
 
 export default function Opportunities() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,36 +48,31 @@ export default function Opportunities() {
       {isDetailsPage ? (
         <Outlet />
       ) : (
-        <SidebarProvider>
-          <div className="flex w-full">
-            <OpportunitiesSidebar />
-            <div className="flex-1">
-              <OpportunitiesHero 
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-              />
+        <>
+          <OpportunitiesHero 
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+          />
 
-              <div className="container mx-auto px-4 py-8">
-                <div className="flex flex-col md:flex-row gap-6">
-                  <aside className="w-full md:w-64 shrink-0">
-                    <OpportunitySidebar
-                      selectedType={selectedType}
-                      onTypeSelect={setSelectedType}
-                    />
-                  </aside>
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex flex-col md:flex-row gap-6">
+              <aside className="w-full md:w-64 shrink-0">
+                <OpportunitySidebar
+                  selectedType={selectedType}
+                  onTypeSelect={setSelectedType}
+                />
+              </aside>
 
-                  <div className="flex-1">
-                    <OpportunitiesGrid
-                      opportunities={opportunities}
-                      onApply={handleApply}
-                      isLoading={isLoading}
-                    />
-                  </div>
-                </div>
+              <div className="flex-1">
+                <OpportunitiesGrid
+                  opportunities={opportunities}
+                  onApply={handleApply}
+                  isLoading={isLoading}
+                />
               </div>
             </div>
           </div>
-        </SidebarProvider>
+        </>
       )}
 
       <AuthDialog
