@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { AuthDialog } from "@/components/AuthDialog";
 
 export const Hero = () => {
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+
   return (
     <div className="bg-gradient-to-br from-primary to-accent py-20 text-white">
       <div className="container mx-auto px-4">
@@ -13,7 +17,12 @@ export const Hero = () => {
             Join a thriving community of professionals, share ideas, and grow your business with B.E.N. - your gateway to success.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="font-semibold">
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="font-semibold"
+              onClick={() => setShowAuthDialog(true)}
+            >
               Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -23,6 +32,12 @@ export const Hero = () => {
           </div>
         </div>
       </div>
+
+      <AuthDialog 
+        open={showAuthDialog}
+        onOpenChange={setShowAuthDialog}
+        opportunityId={null}
+      />
     </div>
   );
 };
