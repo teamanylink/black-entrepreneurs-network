@@ -29,12 +29,34 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
     });
   };
 
+  const getImageForType = (type: string) => {
+    switch (type) {
+      case "job":
+        return "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d";
+      case "joint_venture":
+        return "https://images.unsplash.com/photo-1605810230434-7631ac76ec81";
+      case "internship":
+        return "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158";
+      case "workshop":
+        return "https://images.unsplash.com/photo-1483058712412-4245e9b90334";
+      default:
+        return "/placeholder.svg";
+    }
+  };
+
   const handleCardClick = () => {
     navigate(`/opportunities/${opportunity.id}`);
   };
 
   return (
     <Card className="group hover:shadow-md transition-all duration-200 cursor-pointer bg-white border-0 shadow-sm" onClick={handleCardClick}>
+      <div className="aspect-video relative overflow-hidden rounded-t-lg">
+        <img 
+          src={getImageForType(opportunity.type)}
+          alt={opportunity.title}
+          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-200"
+        />
+      </div>
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <div className="flex gap-3 items-center">
