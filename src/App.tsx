@@ -4,11 +4,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import Index from "./pages/Index";
+import Dashboard from "./pages/Dashboard";
 import Opportunities from "./pages/Opportunities";
 import OpportunityDetails from "./pages/OpportunityDetails";
 import Onboarding from "./pages/Onboarding";
-import Dashboard from "./pages/Dashboard";
 import Community from "./pages/Community";
 import Chat from "./pages/Chat";
 
@@ -28,6 +27,19 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+// Protected Onboarding Route component
+const ProtectedOnboardingRoute = ({ children }: { children: React.ReactNode }) => {
+  const { session } = useAuth();
+  console.log("Protected Onboarding Route - Session:", session); // Debug log
+  
+  if (!session) {
+    console.log("No session, redirecting to home"); // Debug log
+    return <Navigate to="/" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
 const App = () => {
   const { session } = useAuth();
   console.log("App Component - Session:", session); // Debug log
@@ -40,24 +52,39 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
-            <Route path="/onboarding" element={<Onboarding />} />
             
-            {/* Protected Dashboard Routes */}
+            {/* Protected Onboarding Route */}
             <Route
-              path="/dashboard"
+              path="/onboarding"
               element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
+                <ProtectedOnboardingRoute>
+                  <Onboarding />
+                </ProtectedOnboardingRoute>
               }
-            >
-              <Route index element={<Dashboard />} />
-              <Route path="community" element={<Community />} />
-              <Route path="chat" element={<Chat />} />
+            />
+            
+            {/* Dashboard Routes - Some features protected */}
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route
+                path="community"
+                element={
+                  <ProtectedRoute>
+                    <Community />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="chat"
+                element={
+                  <ProtectedRoute>
+                    <Chat />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             {/* Catch-all redirect */}
