@@ -86,7 +86,7 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
         </span>
         <Button
           size="sm"
-          className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground"
           onClick={(e) => {
             e.stopPropagation();
             onApply(opportunity.id);

@@ -28,7 +28,7 @@ export function OpportunitiesHero({ searchTerm, onSearchChange }: OpportunitiesH
 
   return (
     <div className="bg-background">
-      <div className=" mx-auto px-4 py-8">
+      <div className="mx-auto px-4 py-8">
         <div className="flex flex-col gap-8">
           {/* Search Section */}
           <div className="bg-white rounded-xl shadow-sm p-4">
@@ -49,7 +49,7 @@ export function OpportunitiesHero({ searchTerm, onSearchChange }: OpportunitiesH
                   className="pl-10 bg-background border-0 focus-visible:ring-0"
                 />
               </div>
-              <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 Search
               </Button>
             </div>
