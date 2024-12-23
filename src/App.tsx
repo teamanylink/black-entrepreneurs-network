@@ -13,25 +13,24 @@ import Community from "./pages/Community";
 import Chat from "./pages/Chat";
 import Jobs from "./pages/Jobs";
 import Ventures from "./pages/Ventures";
-import { ContentGenerator } from "@/components/ContentGenerator";
 
 const queryClient = new QueryClient();
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-const { session } = useAuth();
-const location = useLocation();
+  const { session } = useAuth();
+  const location = useLocation();
 
-console.log("Protected Route Check - Current Path:", location.pathname);
-console.log("Protected Route - Session Status:", !!session);
+  console.log("Protected Route Check - Current Path:", location.pathname);
+  console.log("Protected Route - Session Status:", !!session);
 
-if (!session) {
-console.log("No session found, redirecting to home");
-return <Navigate to="/" state={{ from: location }} replace />;
-}
+  if (!session) {
+    console.log("No session found, redirecting to home");
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
 
-console.log("Session verified, rendering protected content");
-return <>{children}</>;
+  console.log("Session verified, rendering protected content");
+  return <>{children}</>;
 };
 
 const App = () => {
@@ -50,10 +49,6 @@ const App = () => {
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
-            
-            {/* Content Generator Routes */}
-            <Route path="/generate/article" element={<ContentGenerator type="article" />} />
-            <Route path="/generate/blog" element={<ContentGenerator type="blog" />} />
 
             {/* Protected Routes */}
             <Route

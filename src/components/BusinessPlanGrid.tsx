@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText, Facebook, Twitter, Globe, Search, ShoppingCart, Layout, PenTool } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ContentGeneratorDialog } from "./ContentGeneratorDialog";
 
 const businessPlanCategories = [
   {
@@ -33,21 +33,21 @@ const businessPlanTopics = [
     title: "Blog Idea",
     description: "Blog ideas generate more website traffic.",
     icon: PenTool,
-    path: "/generate/blog"
+    type: "blog" as const
   },
   {
     id: "blog_intro",
     title: "Blog Intro",
     description: "Start write compelling introduction.",
     icon: FileText,
-    path: "/generate/blog"
+    type: "blog" as const
   },
   {
     id: "article_generator",
     title: "Article Generator",
     description: "Generate more copies with article AI.",
     icon: Layout,
-    path: "/generate/article"
+    type: "article" as const
   },
   {
     id: "facebook_ads",
@@ -82,7 +82,15 @@ const businessPlanTopics = [
 ];
 
 export function BusinessPlanGrid() {
-  const navigate = useNavigate();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState<'article' | 'blog' | null>(null);
+
+  const handleTopicClick = (type: 'article' | 'blog' | undefined) => {
+    if (type) {
+      setSelectedType(type);
+      setDialogOpen(true);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -115,7 +123,7 @@ export function BusinessPlanGrid() {
             <Card
               key={topic.id}
               className="border hover:shadow-md transition-shadow cursor-pointer"
-              onClick={() => topic.path && navigate(topic.path)}
+              onClick={() => handleTopicClick(topic.type)}
             >
               <CardContent className="p-6 flex items-start gap-4">
                 <topic.icon className="h-6 w-6" />
@@ -128,6 +136,14 @@ export function BusinessPlanGrid() {
           ))}
         </div>
       </div>
+
+      {selectedType && (
+        <ContentGeneratorDialog
+          type={selectedType}
+          open={dialogOpen}
+          onOpenChange={setDialogOpen}
+        />
+      )}
     </div>
   );
 }
