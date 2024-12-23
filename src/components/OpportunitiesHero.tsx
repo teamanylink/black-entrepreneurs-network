@@ -27,7 +27,7 @@ export function OpportunitiesHero({ searchTerm, onSearchChange }: OpportunitiesH
   ];
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-8">
           {/* Search Section */}
