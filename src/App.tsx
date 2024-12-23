@@ -24,6 +24,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/" replace />;
   }
   
+  console.log("Session exists, allowing access to protected route"); // Debug log
   return children;
 };
 
