@@ -13,7 +13,8 @@ const opportunityTypes = [
   { id: "joint_venture", label: "Joint Ventures", icon: Handshake },
   { id: "internship", label: "Internships", icon: GraduationCap },
   { id: "workshop", label: "Workshops", icon: BookOpen },
-  { id: "news", label: "News Articles", icon: Newspaper }
+  { id: "news", label: "News Articles", icon: Newspaper },
+  { id: "business_plan_generator", label: "Business Plan Generator", icon: Briefcase}
 ];
 
 interface OpportunitySidebarProps {
@@ -26,7 +27,7 @@ export function OpportunitySidebar({ selectedType, onTypeSelect }: OpportunitySi
 
   const SidebarContent = () => (
     <div className="p-4 h-full">
-      <h2 className="font-semibold mb-4 text-primary">Opportunity Types</h2>
+      {/* <h2 className="font-semibold mb-4 text-primary">Opportunity Types</h2> */}
       <div className="space-y-2">
         {opportunityTypes.map((type) => {
           const Icon = type.icon;
