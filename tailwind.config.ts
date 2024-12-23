@@ -33,8 +33,8 @@ export default {
           foreground: "#1A1A1A",
         },
         accent: {
-          DEFAULT: "#2C1810",
-          foreground: "#FFFFFF",
+          DEFAULT: "#C4A24C", // Updated to match the goldish yellow
+          foreground: "#1A1A1A", // Updated for better contrast with the new accent color
         },
         muted: {
           DEFAULT: "#F3F4F6",
