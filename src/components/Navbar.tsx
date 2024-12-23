@@ -15,13 +15,25 @@ export const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut();
+      console.log("Attempting to log out...");
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error("Logout error:", error);
+        throw error;
+      }
+
+      console.log("Logout successful");
       toast({
         title: "Success",
         description: "You have been logged out successfully",
       });
-      navigate('/');
+      
+      // Use replace to prevent going back to authenticated state
+      navigate('/', { replace: true });
+      
     } catch (error) {
+      console.error("Logout failed:", error);
       toast({
         variant: "destructive",
         title: "Error",
