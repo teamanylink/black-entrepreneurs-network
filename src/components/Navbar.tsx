@@ -51,10 +51,10 @@ export const Navbar = () => {
             <span className="hidden md:inline text-sm text-muted-foreground">Business Empowerment Network</span>
           </div>
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/opportunities" className="text-muted-foreground hover:text-primary transition-colors">Opportunities</Link>
+            {/* <Link to="/opportunities" className="text-muted-foreground hover:text-primary transition-colors">Opportunities</Link>
             <a href="#news" className="text-muted-foreground hover:text-primary transition-colors">News</a>
             <a href="#stories" className="text-muted-foreground hover:text-primary transition-colors">Success Stories</a>
-            <a href="#resources" className="text-muted-foreground hover:text-primary transition-colors">Resources</a>
+            <a href="#resources" className="text-muted-foreground hover:text-primary transition-colors">Resources</a> */}
             {session ? (
               <Button 
                 variant="outline"
