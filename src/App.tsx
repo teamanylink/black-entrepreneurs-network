@@ -13,6 +13,7 @@ import Community from "./pages/Community";
 import Chat from "./pages/Chat";
 import Jobs from "./pages/Jobs";
 import Ventures from "./pages/Ventures";
+import { ContentGenerator } from "@/components/ContentGenerator";
 
 const queryClient = new QueryClient();
 
@@ -34,49 +35,50 @@ return <>{children}</>;
 };
 
 const App = () => {
-const { session } = useAuth();
-console.log("App Component - Session:", session);
+  const { session } = useAuth();
+  console.log("App Component - Session:", session);
 
-return (
-<QueryClientProvider client={queryClient}>
-<TooltipProvider>
-<Toaster />
-<Sonner />
-<BrowserRouter>
-<Routes>
-{/* Public Routes */}
-<Route path="/" element={<Index />} />
-<Route path="/opportunities" element={<Opportunities />}>
-<Route path=":id" element={<OpportunityDetails />} />
-</Route>
- {/* Protected Routes */}
- <Route
-          path="/onboarding"
-          element={
-              <Onboarding />
-          }
-        />
-        
-        <Route
-          path="/dashboard/*"
-          element={
-              <Dashboard />
-          }
-        >
-          <Route path="jobs" element={<Jobs />} />
-          <Route path="ventures" element={<Ventures />} />
-          <Route path="opportunities" element={<Opportunities />} />
-          <Route path="community" element={<Community />} />
-          <Route path="chat" element={<Chat />} />
-        </Route>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Index />} />
+            <Route path="/opportunities" element={<Opportunities />}>
+              <Route path=":id" element={<OpportunityDetails />} />
+            </Route>
+            
+            {/* Content Generator Routes */}
+            <Route path="/generate/article" element={<ContentGenerator type="article" />} />
+            <Route path="/generate/blog" element={<ContentGenerator type="blog" />} />
 
-        {/* Catch-all redirect */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
-  </TooltipProvider>
-</QueryClientProvider>
-);
+            {/* Protected Routes */}
+            <Route
+              path="/onboarding"
+              element={<Onboarding />}
+            />
+            
+            <Route
+              path="/dashboard/*"
+              element={<Dashboard />}
+            >
+              <Route path="jobs" element={<Jobs />} />
+              <Route path="ventures" element={<Ventures />} />
+              <Route path="opportunities" element={<Opportunities />} />
+              <Route path="community" element={<Community />} />
+              <Route path="chat" element={<Chat />} />
+            </Route>
+
+            {/* Catch-all redirect */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
 };
 
 export default App;
