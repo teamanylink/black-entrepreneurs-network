@@ -44,7 +44,16 @@ const App = () => {
             <Route path="/opportunities" element={<Opportunities />}>
               <Route path=":id" element={<OpportunityDetails />} />
             </Route>
-            <Route path="/onboarding" element={<Onboarding />} />
+            
+            {/* Protected Routes */}
+            <Route
+              path="/onboarding"
+              element={
+                <ProtectedRoute>
+                  <Onboarding />
+                </ProtectedRoute>
+              }
+            />
             
             {/* Protected Dashboard Routes */}
             <Route
