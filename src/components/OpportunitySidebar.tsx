@@ -24,8 +24,8 @@ export function OpportunitySidebar({ selectedType, onTypeSelect }: OpportunitySi
   const isMobile = useIsMobile();
 
   const SidebarContent = () => (
-    <div className="w-64 pr-6">
-      <h2 className="font-semibold mb-4">Opportunity Types</h2>
+    <div className="p-4 h-full">
+      <h2 className="font-semibold mb-4 text-primary">Opportunity Types</h2>
       <div className="space-y-2">
         {opportunityTypes.map((type) => {
           const Icon = type.icon;
@@ -35,7 +35,7 @@ export function OpportunitySidebar({ selectedType, onTypeSelect }: OpportunitySi
               variant={selectedType === type.id ? "secondary" : "ghost"}
               className={cn(
                 "w-full justify-start gap-2",
-                selectedType === type.id && "bg-secondary"
+                selectedType === type.id && "bg-secondary text-secondary-foreground"
               )}
               onClick={() => onTypeSelect(selectedType === type.id ? null : type.id)}
             >

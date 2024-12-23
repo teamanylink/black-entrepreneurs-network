@@ -48,31 +48,29 @@ export default function Opportunities() {
       {isDetailsPage ? (
         <Outlet />
       ) : (
-        <>
-          <OpportunitiesHero 
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-          />
+        <div className="flex">
+          <aside className="w-64 min-h-[calc(100vh-4rem)] bg-muted fixed left-0 top-16 border-r border-border">
+            <OpportunitySidebar
+              selectedType={selectedType}
+              onTypeSelect={setSelectedType}
+            />
+          </aside>
+          
+          <div className="flex-1 ml-64">
+            <OpportunitiesHero 
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+            />
 
-          <div className="container mx-auto px-4 py-8">
-            <div className="flex flex-col md:flex-row gap-6">
-              <aside className="w-full md:w-64 shrink-0">
-                <OpportunitySidebar
-                  selectedType={selectedType}
-                  onTypeSelect={setSelectedType}
-                />
-              </aside>
-
-              <div className="flex-1">
-                <OpportunitiesGrid
-                  opportunities={opportunities}
-                  onApply={handleApply}
-                  isLoading={isLoading}
-                />
-              </div>
+            <div className="container mx-auto px-4 py-8">
+              <OpportunitiesGrid
+                opportunities={opportunities}
+                onApply={handleApply}
+                isLoading={isLoading}
+              />
             </div>
           </div>
-        </>
+        </div>
       )}
 
       <AuthDialog
