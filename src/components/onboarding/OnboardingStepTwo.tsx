@@ -12,6 +12,7 @@ interface OnboardingStepTwoProps {
 
 export const OnboardingStepTwo = ({ onComplete }: OnboardingStepTwoProps) => {
   const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [socialLinks, setSocialLinks] = useState({
     linkedin: "",
     twitter: "",
@@ -29,58 +30,86 @@ export const OnboardingStepTwo = ({ onComplete }: OnboardingStepTwoProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsUploading(true);
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    let profileImageUrl = null;
-
-    if (profileImage) {
-      const fileExt = profileImage.name.split(".").pop();
-      const filePath = `${user.id}-${Math.random()}.${fileExt}`;
-
-      const { error: uploadError, data } = await supabase.storage
-        .from("profile_images")
-        .upload(filePath, profileImage);
-
-      if (uploadError) {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
         toast({
           variant: "destructive",
           title: "Error",
-          description: "Failed to upload profile image. Please try again.",
+          description: "You must be logged in to complete your profile.",
         });
         return;
       }
 
-      const { data: { publicUrl } } = supabase.storage
-        .from("profile_images")
-        .getPublicUrl(filePath);
+      let profileImageUrl = null;
 
-      profileImageUrl = publicUrl;
-    }
+      if (profileImage) {
+        const fileExt = profileImage.name.split(".").pop();
+        const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+        const filePath = `${fileName}`;
 
-    const { error } = await supabase
-      .from("profiles")
-      .update({
-        profile_image_url: profileImageUrl,
-        linkedin_url: socialLinks.linkedin || null,
-        twitter_url: socialLinks.twitter || null,
-        facebook_url: socialLinks.facebook || null,
-        instagram_url: socialLinks.instagram || null,
-        website_url: socialLinks.website || null,
-      })
-      .eq("id", user.id);
+        const { error: uploadError } = await supabase.storage
+          .from("profile_images")
+          .upload(filePath, profileImage, {
+            upsert: true
+          });
 
-    if (error) {
+        if (uploadError) {
+          console.error("Upload error:", uploadError);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Failed to upload profile image. Please try again.",
+          });
+          return;
+        }
+
+        const { data: { publicUrl } } = supabase.storage
+          .from("profile_images")
+          .getPublicUrl(filePath);
+
+        profileImageUrl = publicUrl;
+      }
+
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({
+          profile_image_url: profileImageUrl,
+          linkedin_url: socialLinks.linkedin || null,
+          twitter_url: socialLinks.twitter || null,
+          facebook_url: socialLinks.facebook || null,
+          instagram_url: socialLinks.instagram || null,
+          website_url: socialLinks.website || null,
+        })
+        .eq("id", user.id);
+
+      if (updateError) {
+        console.error("Profile update error:", updateError);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to save your profile. Please try again.",
+        });
+        return;
+      }
+
+      toast({
+        title: "Success",
+        description: "Your profile has been updated successfully.",
+      });
+      onComplete();
+    } catch (error) {
+      console.error("Submission error:", error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to save your profile. Please try again.",
+        description: "An unexpected error occurred. Please try again.",
       });
-      return;
+    } finally {
+      setIsUploading(false);
     }
-
-    onComplete();
   };
 
   return (
@@ -175,8 +204,8 @@ export const OnboardingStepTwo = ({ onComplete }: OnboardingStepTwoProps) => {
         </div>
       </div>
 
-      <Button type="submit" className="w-full">
-        Complete Profile
+      <Button type="submit" className="w-full" disabled={isUploading}>
+        {isUploading ? "Saving..." : "Complete Profile"}
       </Button>
     </form>
   );
