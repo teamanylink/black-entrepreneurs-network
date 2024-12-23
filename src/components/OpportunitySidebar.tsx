@@ -1,4 +1,4 @@
-import { Briefcase, Users, GraduationCap, BookOpen, Filter } from "lucide-react";
+import { Briefcase, Users, GraduationCap, BookOpen, Filter, Newspaper } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,10 +10,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 const opportunityTypes = [
   { id: "job", label: "Jobs", icon: Briefcase },
-  { id: "joint_venture", label: "Joint Ventures", icon: Users },
+  { id: "joint_venture", label: "Joint Ventures", icon: Handshake },
   { id: "internship", label: "Internships", icon: GraduationCap },
   { id: "workshop", label: "Workshops", icon: BookOpen },
-  { id: "news", label: "News Articles", icon: BookOpen }
+  { id: "news", label: "News Articles", icon: Newspaper }
 ];
 
 interface OpportunitySidebarProps {
