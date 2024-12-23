@@ -33,59 +33,64 @@ const businessPlanTopics = [
     title: "Blog Idea",
     description: "Blog ideas generate more website traffic.",
     icon: PenTool,
-    type: "blog" as const
+    type: "Blog Idea"
   },
   {
     id: "blog_intro",
     title: "Blog Intro",
     description: "Start write compelling introduction.",
     icon: FileText,
-    type: "blog" as const
+    type: "Blog Introduction"
   },
   {
     id: "article_generator",
     title: "Article Generator",
     description: "Generate more copies with article AI.",
     icon: Layout,
-    type: "article" as const
+    type: "Article"
   },
   {
     id: "facebook_ads",
     title: "Facebook Ads",
     description: "Facebook ad copies that make your ads.",
     icon: Facebook,
+    type: "Facebook Ad"
   },
   {
     id: "tweet_ideas",
     title: "Tweet Ideas",
     description: "Engage with your amazing followers.",
     icon: Twitter,
+    type: "Tweet"
   },
   {
     id: "content_rephrase",
     title: "Content Rephrase",
     description: "Rephrase your content in different voice.",
     icon: PenTool,
+    type: "Content Rephrase"
   },
   {
     id: "seo_meta",
     title: "SEO Meta Description",
     description: "Your website for maximum visibility.",
     icon: Globe,
+    type: "SEO Meta Description"
   },
   {
     id: "product_description",
     title: "Product Description",
     description: "Write compelling detailed product.",
     icon: ShoppingCart,
+    type: "Product Description"
   },
 ];
 
 export function BusinessPlanGrid() {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState<'article' | 'blog' | null>(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
 
-  const handleTopicClick = (type: 'article' | 'blog' | undefined) => {
+  const handleTopicClick = (type: string | undefined) => {
     if (type) {
       setSelectedType(type);
       setDialogOpen(true);
@@ -102,6 +107,7 @@ export function BusinessPlanGrid() {
             <Card
               key={category.id}
               className={`${category.color} border-none cursor-pointer hover:shadow-md transition-shadow`}
+              onClick={() => handleTopicClick(category.title)}
             >
               <CardContent className="p-6 flex items-start gap-4">
                 <category.icon className="h-6 w-6" />

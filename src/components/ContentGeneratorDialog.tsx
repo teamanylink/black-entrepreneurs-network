@@ -5,9 +5,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ContentGeneratorDialogProps {
-  type: 'article' | 'blog';
+  type: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -55,14 +56,14 @@ export function ContentGeneratorDialog({ type, open, onOpenChange }: ContentGene
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>
-            {type === 'article' ? 'Article Generator' : 'Blog Post Generator'}
+            {type} Generator
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4">
+        <div className="space-y-4 flex-shrink-0">
           <Textarea
             placeholder={`Enter your ${type} topic or prompt...`}
             value={prompt}
@@ -86,10 +87,12 @@ export function ContentGeneratorDialog({ type, open, onOpenChange }: ContentGene
         </div>
         
         {generatedContent && (
-          <div className="mt-8 p-6 border rounded-lg bg-background">
-            <h2 className="text-xl font-semibold mb-4">Generated Content:</h2>
-            <div className="whitespace-pre-wrap">{generatedContent}</div>
-          </div>
+          <ScrollArea className="flex-1 mt-8">
+            <div className="p-6 border rounded-lg bg-background">
+              <h2 className="text-xl font-semibold mb-4">Generated Content:</h2>
+              <div className="whitespace-pre-wrap">{generatedContent}</div>
+            </div>
+          </ScrollArea>
         )}
       </DialogContent>
     </Dialog>
