@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { OpportunitySidebar } from "@/components/OpportunitySidebar";
 import { OpportunitiesHero } from "@/components/OpportunitiesHero";
 import { OpportunitiesGrid } from "@/components/OpportunitiesGrid";
 import { AuthDialog } from "@/components/AuthDialog";
@@ -60,22 +59,11 @@ export default function Opportunities() {
               />
 
               <div className="container mx-auto px-4 py-8">
-                <div className="flex flex-col md:flex-row gap-6">
-                  <aside className="w-full md:w-64 shrink-0">
-                    <OpportunitySidebar
-                      selectedType={selectedType}
-                      onTypeSelect={setSelectedType}
-                    />
-                  </aside>
-
-                  <div className="flex-1">
-                    <OpportunitiesGrid
-                      opportunities={opportunities}
-                      onApply={handleApply}
-                      isLoading={isLoading}
-                    />
-                  </div>
-                </div>
+                <OpportunitiesGrid
+                  opportunities={opportunities}
+                  onApply={handleApply}
+                  isLoading={isLoading}
+                />
               </div>
             </div>
           </div>
