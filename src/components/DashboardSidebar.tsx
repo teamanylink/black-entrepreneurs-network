@@ -1,5 +1,5 @@
 
-import { Users, MessageSquare, Briefcase, Calendar, Building2, Handshake, BookOpen, Home, BookmarkIcon } from "lucide-react";
+import { Users, MessageSquare, Calendar, BookOpen, Home, BookmarkIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -46,7 +46,11 @@ const menuItems = [
   },
 ];
 
-export function DashboardSidebar() {
+interface DashboardSidebarProps {
+  onNavigate?: () => void;
+}
+
+export function DashboardSidebar({ onNavigate }: DashboardSidebarProps) {
   const location = useLocation();
 
   return (
@@ -63,6 +67,7 @@ export function DashboardSidebar() {
                       asChild
                       isActive={location.pathname === item.url}
                       tooltip={item.title}
+                      onClick={onNavigate}
                     >
                       <Link to={item.url}>
                         <item.icon className="h-4 w-4" />

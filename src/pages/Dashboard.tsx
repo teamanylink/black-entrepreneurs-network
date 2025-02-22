@@ -5,15 +5,31 @@ import { Feed } from "@/components/Feed";
 import { EventCalendar } from "@/components/EventCalendar";
 import { DashboardSearch } from "@/components/DashboardSearch";
 import { Button } from "@/components/ui/button";
-import { Video } from "lucide-react";
+import { Video, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useState } from "react";
 
 export default function Dashboard() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
-      <div className="flex h-16 items-center justify-between border-b px-4">
-        <DashboardSearch />
+      <div className="flex h-16 items-center justify-between border-b px-4 lg:px-6">
         <div className="flex items-center gap-4">
-          <Button variant="outline" className="gap-2">
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="p-0">
+              <DashboardSidebar onNavigate={() => setIsMobileMenuOpen(false)} />
+            </SheetContent>
+          </Sheet>
+          <DashboardSearch />
+        </div>
+        <div className="flex items-center gap-4">
+          <Button variant="outline" className="hidden sm:flex gap-2">
             <Video className="h-4 w-4" />
             Go live
           </Button>
@@ -47,12 +63,18 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="flex">
-        <DashboardSidebar />
-        <main className="flex-1 px-4 py-6">
-          <Stories />
-          <Feed />
+        <div className="hidden lg:block">
+          <DashboardSidebar />
+        </div>
+        <main className="flex-1">
+          <div className="container max-w-6xl">
+            <div className="px-4 py-6 lg:px-8">
+              <Stories />
+              <Feed />
+            </div>
+          </div>
         </main>
-        <aside className="w-80 p-4 border-l">
+        <aside className="hidden xl:block w-80 p-4 border-l">
           <EventCalendar />
         </aside>
       </div>

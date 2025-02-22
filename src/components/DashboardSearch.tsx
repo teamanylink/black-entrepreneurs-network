@@ -18,11 +18,11 @@ export function DashboardSearch() {
         </svg>
         <input
           className="w-full rounded-md border border-gray-200 bg-white pl-8 pr-4 py-2 text-sm placeholder:text-gray-500 focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300"
-          placeholder="Input search ..."
+          placeholder="Search..."
           type="search"
         />
       </div>
-      <div className="flex items-center gap-2 text-sm text-gray-500">
+      <div className="hidden sm:flex items-center gap-2 text-sm text-gray-500">
         <span>⌘</span>
         <span>+</span>
         <span>F</span>
