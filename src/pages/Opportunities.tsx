@@ -9,10 +9,13 @@ import { NewsGrid } from "@/components/NewsGrid";
 import { AuthDialog } from "@/components/AuthDialog";
 import { Navbar } from "@/components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
+import { Database } from "@/integrations/supabase/types";
+
+type OpportunityType = Database["public"]["Enums"]["opportunity_type"] | "news" | "business_plan_generator" | null;
 
 export default function Opportunities() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<OpportunityType>(null);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [selectedOpportunityId, setSelectedOpportunityId] = useState<string | null>(null);
   const location = useLocation();
