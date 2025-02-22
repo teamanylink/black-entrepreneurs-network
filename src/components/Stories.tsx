@@ -14,7 +14,11 @@ export function Stories() {
     <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
       {stories.map((story) => (
         <div key={story.id} className="flex flex-col items-center gap-2">
-          <div className={`relative group cursor-pointer ${story.isAdd ? '' : 'ring-2 ring-secondary ring-offset-2'} rounded-full`}>
+          <div 
+            className={`relative group cursor-pointer ${
+              story.isAdd ? '' : 'ring-2 ring-[#0066FF] ring-offset-2'
+            } rounded-full`}
+          >
             <Avatar className="h-16 w-16">
               {story.isAdd ? (
                 <div className="w-full h-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors">
@@ -35,4 +39,4 @@ export function Stories() {
       ))}
     </div>
   );
-};
+}

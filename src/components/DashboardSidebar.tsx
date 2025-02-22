@@ -1,4 +1,5 @@
-import { Users, MessageSquare, Briefcase, Search, Building2, Handshake } from "lucide-react";
+
+import { Users, MessageSquare, Briefcase, Calendar, Building2, Handshake, BookOpen, Home, BookmarkIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -13,29 +14,34 @@ import {
 
 const menuItems = [
   {
-    title: "Jobs",
-    url: "/dashboard/jobs",
-    icon: Briefcase,
+    title: "Home",
+    url: "/dashboard",
+    icon: Home,
   },
   {
-    title: "Joint Ventures",
-    url: "/dashboard/ventures",
-    icon: Handshake,
+    title: "Events",
+    url: "/dashboard/events",
+    icon: Calendar,
   },
   {
-    title: "Opportunities",
-    url: "/dashboard/opportunities",
-    icon: Building2,
+    title: "Courses",
+    url: "/dashboard/courses",
+    icon: BookOpen,
   },
   {
-    title: "Community",
-    url: "/dashboard/community",
+    title: "Members",
+    url: "/dashboard/members",
     icon: Users,
   },
   {
-    title: "Chat",
+    title: "Message",
     url: "/dashboard/chat",
     icon: MessageSquare,
+  },
+  {
+    title: "Save",
+    url: "/dashboard/saved",
+    icon: BookmarkIcon,
   },
 ];
 
@@ -43,7 +49,7 @@ export function DashboardSidebar() {
   const location = useLocation();
 
   return (
-    <Sidebar className="bg-gray-100 border-r">
+    <Sidebar className="bg-gray-50 border-r">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
